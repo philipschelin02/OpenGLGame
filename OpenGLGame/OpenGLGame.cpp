@@ -133,29 +133,48 @@ int main() {
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShader);
 
-    //compilies fragment shaderie on gee pee u?!?!?! what?!?
-    const char* fragmentShaderSource = "#version 330 core\n"
+    // ------ Compile the Orange Fragment Shader on the GPU --------
+    const char* orangeFragmentShaderSource = "#version 330 core\n"
         "out vec4 FragColor;\n"
         "void main()\n"
         "{\n"
-        "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+        "    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
         "} \0";
-    unsigned int fragmentShader;
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
+    unsigned int orangeFragmentShader;
+    orangeFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(orangeFragmentShader, 1, &orangeFragmentShaderSource, NULL);
+    glCompileShader(orangeFragmentShader);
 
-    //Create Shader Program (render pipeline)
-    unsigned int shaderProgram;
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    glUseProgram(shaderProgram);
+    // ------ Compile the Yellow Fragment Shader on the GPU --------
+    const char* yellowFragmentShaderSource = "#version 330 core\n"
+        "out vec4 FragColor;\n"
+        "void main()\n"
+        "{\n"
+        "    FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
+        "} \0";
+    unsigned int yellowFragmentShader;
+    yellowFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(yellowFragmentShader, 1, &yellowFragmentShaderSource, NULL);
+    glCompileShader(yellowFragmentShader);
+
+    // -------- Create Orange Shader Program (Render Pipeline) ---------
+    unsigned int orangeShaderProgram;
+    orangeShaderProgram = glCreateProgram();
+    glAttachShader(orangeShaderProgram, vertexShader);
+    glAttachShader(orangeShaderProgram, orangeFragmentShader);
+    glLinkProgram(orangeShaderProgram);
+
+    // -------- Create Yellow Shader Program (Render Pipeline) ---------
+    unsigned int yellowShaderProgram;
+    yellowShaderProgram = glCreateProgram();
+    glAttachShader(yellowShaderProgram, vertexShader);
+    glAttachShader(yellowShaderProgram, yellowFragmentShader);
+    glLinkProgram(yellowShaderProgram);
+
     //cleanie uppie shadies!!!!
     glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
+    glDeleteShader(orangeFragmentShader);
+    glDeleteShader(yellowFragmentShader);
     // while the user does not want to quit, (x button, alt f4)
     while (!glfwWindowShouldClose(window))
     {
