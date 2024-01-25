@@ -5,6 +5,7 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Material.h"
+#include "Triangle.h"
 using namespace std;
 void processInput(GLFWwindow*);
 
@@ -13,7 +14,6 @@ int main() {
     Window window{ 800 ,600 };
 
     //real program starts here!!!!!!
-    float red{};
 
     float vertices[]{
            -1.0f, -0.5f, 0.0f,
@@ -80,6 +80,10 @@ int main() {
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
     Material orange{vertexShader, orangeShader};
+    Material yellow{ vertexShader, yellowShader };
+
+    Triangle a{ &orange, &mesh1 };
+    Triangle b{ &yellow, &mesh1 };
 
     // -------- Create Yellow Shader Program (Render Pipeline) ---------
     unsigned int yellowShaderProgram{ glCreateProgram() };
@@ -90,26 +94,26 @@ int main() {
     //cleanie uppie shadies!!!!
     glDeleteShader(orangeFragmentShader);
     glDeleteShader(yellowFragmentShader);
+
+    Triangle a{&orange}
+
     // while the user does not want to quit, (x button, alt f4)
     while (!window.shouldClose())
     {
         //process input (eg close window on esc)
         glfwPollEvents(); //uhmmmm???
         window.processInput();
-        red += 0.001f;
-        if (red > 1)
-            red -= 1;
 
         //render (paint current frame of game)
-        glClearColor(red, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         //dry principle
         //dont repeat urself
-        glUseProgram(orangeShaderProgram);
         mesh1.render();
+        orange.use;
 
-        glUseProgram(yellowShaderProgram);
+        yellow.use;
         mesh2.render();
         window.present();
     }

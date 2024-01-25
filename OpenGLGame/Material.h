@@ -8,9 +8,12 @@ public:
 	{
 		unsigned int shaderProgram;
 		shaderProgram { glCreateProgram() };
-		glAttachShader(orangeShaderProgram, vertexShader.shaderId);
-		glAttachShader(orangeShaderProgram, orangeFragmentShader);
-		glLinkProgram(orangeShaderProgram);
+		glAttachShader(shaderProgram, vertexShader.shaderId);
+		glAttachShader(shaderProgram, fragmentShader.shaderId);
+		glLinkProgram(shaderProgram);
+	}
+	void use() {
+		glUseProgram(shaderProgram);
 	}
 };
 
