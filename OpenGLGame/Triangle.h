@@ -5,11 +5,11 @@
 
 class Triangle
 {
-	Mesh mesh;
+	Mesh* mesh;
 	Material* material;
 
 public:
-	Triangle(Mesh* mesh, Material& _material) {
+	Triangle(Material* _material, Mesh* _mesh) {
 		mesh = _mesh;
 		material = _material;
 	}

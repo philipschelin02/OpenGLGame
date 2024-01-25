@@ -61,17 +61,26 @@ public:
         success = true; //we set success to be truesies
 	}
 
-    void processInput()
-    {
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-            glfwSetWindowShouldClose(this->window, true);
-    }
+    
 
+
+    bool shouldClose() {
+        return glfwWindowShouldClose(this->window);
+    }   
+    
     void present() {
         glfwSwapBuffers(window);
     }
 
-    bool shouldClose() {
-        return glfwWindowShouldClose(this->window);
+    void processInput()
+    {
+        glfwPollEvents();
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(this->window, true);
+    }
+
+    void clear() {
+        glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
     }
 };
