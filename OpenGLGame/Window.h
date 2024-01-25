@@ -14,12 +14,10 @@ class Window {
     static void error_callback(int error, const char* msg) {
         cerr << " [" << error << "] " << msg << endl;
     }
+    GLFWwindow* window;
     
 public:
-    GLFWwindow* window;
-    void swapBuffers() {
-        glfwSwapBuffers(window);
-    }
+    
     bool success{};
 
 	Window(int width, int height) {
@@ -62,4 +60,18 @@ public:
         //init ends here
         success = true; //we set success to be truesies
 	}
+
+    void processInput()
+    {
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+            glfwSetWindowShouldClose(this->window, true);
+    }
+
+    void present() {
+        glfwSwapBuffers(window);
+    }
+
+    bool shouldClose() {
+        return glfwWindowShouldClose(this->window);
+    }
 };

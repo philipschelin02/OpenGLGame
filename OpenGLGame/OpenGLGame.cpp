@@ -2,6 +2,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Window.h"
+#include "Mesh.h"
+#include "Shader.h"
+#include "Material.h"
 using namespace std;
 void processInput(GLFWwindow*);
 
@@ -12,46 +15,30 @@ int main() {
     //real program starts here!!!!!!
     float red{};
 
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    //creates array buffer on gpu
-    float vertices[] { //the vertices here are essentially points. Triangles obviously have three points. 
-        //The vertices have to be at the right distance. Otherwise the triangle will look weird and stretched
-     //triangle ett
-
-        //The coords have to be between 1f and -1f. Think of them as being part of a typical coordinate system. kinda smart way to think tbh
-
-    -0.9f, 0.0f, 0.0f, //vertice uno
-     0.0f, 0.0f, 0.0f, //vertice dos
-     -0.45f,  0.5f, 0.0f, //vertice tres
+    float vertices[]{
+           -1.0f, -0.5f, 0.0f,
+            0.0f, -0.5f, 0.0f,
+           -0.5f,  0.5f, 0.0f,
+           -1.0f, -0.5f, 0.0f,
+           -0.5f,  0.5f, 0.0f,
+           -1.0f, 0.5f, 0.0f
     };
     // Variable to store buffer id
 
-    unsigned int VBO;
-    glGenBuffers(1, &VBO); // ask open gl to create bufferie!!!!
-    glBindBuffer(GL_ARRAY_BUFFER, VBO); //tell gl to use this buffer
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); //copy vertices to buffer
+    Mesh mesh1{vertices, size(vertices)};
+    
+    float vertices2[]{
+        //triangle två
+         0.0f, -0.0f, 0.0f,
+         0.45f, 0.5f, 0.0f,
+         0.9f,  0.0f, 0.0f
+    };
 
-
-    //configure vertex attributes currently theres just one, namely the positions
-    //so vertex understands where to find the input attributes, posotion in this case
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    Mesh mesh2{ vertices2, size(vertices2) };
 
     unsigned int VAO2;
     glGenVertexArrays(1, &VAO2);
     glBindVertexArray(VAO2);
-
-    //creates array buffer on gpu
-    float vertices2[] { 
-    //triangle två
-     0.0f, -0.0f, 0.0f,
-     0.45f, 0.5f, 0.0f,
-     0.9f,  0.0f, 0.0f
-    };
-    // Variable to store buffer id
 
     unsigned int VBO2;
     glGenBuffers(1, &VBO2); // ask open gl to create bufferie!!!!
@@ -65,15 +52,8 @@ int main() {
     glEnableVertexAttribArray(0);
 
     //Compile vertex shaderie on gpuie
-    const char* vertexShaderSource{ "#version 330 core\n"
-        "layout (location = 0) in vec3 aPos;\n"
-        "void main()\n"
-        "{\n"
-        "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-        "}\0" };
-    unsigned int vertexShader{ glCreateShader(GL_VERTEX_SHADER) };
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
+    
+    Shader vertexShader{};
 
     // ------ Compile the Orange Fragment Shader on the GPU --------
     const char* orangeFragmentShaderSource{ "#version 330 core\n"
@@ -99,27 +79,23 @@ int main() {
     glCompileShader(yellowFragmentShader);
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
-    unsigned int orangeShaderProgram{ glCreateProgram() };
-    glAttachShader(orangeShaderProgram, vertexShader);
-    glAttachShader(orangeShaderProgram, orangeFragmentShader);
-    glLinkProgram(orangeShaderProgram);
+    Material orange{vertexShader, orangeShader};
 
     // -------- Create Yellow Shader Program (Render Pipeline) ---------
     unsigned int yellowShaderProgram{ glCreateProgram() };
-    glAttachShader(yellowShaderProgram, vertexShader);
+    glAttachShader(yellowShaderProgram, vertexShader.shaderId);
     glAttachShader(yellowShaderProgram, yellowFragmentShader);
     glLinkProgram(yellowShaderProgram);
 
     //cleanie uppie shadies!!!!
-    glDeleteShader(vertexShader);
     glDeleteShader(orangeFragmentShader);
     glDeleteShader(yellowFragmentShader);
     // while the user does not want to quit, (x button, alt f4)
-    while (!glfwWindowShouldClose(window.window))
+    while (!window.shouldClose())
     {
         //process input (eg close window on esc)
         glfwPollEvents(); //uhmmmm???
-        processInput(window.window);
+        window.processInput();
         red += 0.001f;
         if (red > 1)
             red -= 1;
@@ -128,22 +104,16 @@ int main() {
         glClearColor(red, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        //dry principle
+        //dont repeat urself
         glUseProgram(orangeShaderProgram);
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        mesh1.render();
 
         glUseProgram(yellowShaderProgram);
-        glBindVertexArray(VAO2);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        glfwSwapBuffers(window.window);
+        mesh2.render();
+        window.present();
     }
     //cleans upp all the glfw stuffies
     glfwTerminate();
     return 0;
-}
-// Function to process input
-void processInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
 }
