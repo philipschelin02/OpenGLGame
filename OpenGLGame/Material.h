@@ -7,7 +7,7 @@ class Material
 public:
 	Material(Shader& vertexShader, Shader& fragmentShader) 
 	{
-		shaderProgram { glCreateProgram() };
+		shaderProgram = glCreateProgram();
 		glAttachShader(shaderProgram, vertexShader.shaderId);
 		glAttachShader(shaderProgram, fragmentShader.shaderId);
 		glLinkProgram(shaderProgram);

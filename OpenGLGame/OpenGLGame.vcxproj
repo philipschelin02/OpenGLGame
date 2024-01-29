@@ -152,6 +152,9 @@
     <ClCompile Include="OpenGLGame.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <None Include="yellowFragmentShader.glsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Material.h" />
@@ -159,6 +162,10 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="orangeFragmentShader.glsl" />
+    <None Include="vertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
