@@ -40,14 +40,16 @@ int main() {
 
     Shader orangeShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER};
 
-    Shader yellowShader{ "yellowFragmentShader.glsl", GL_FRAGMENT_SHADER};
+    Shader yellowShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER};
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
     Material orange{ vertexShader, orangeShader };
     Material yellow{ vertexShader, yellowShader };
 
     Triangle a{ &orange, &mesh1 };
+    a.red = 1;
     Triangle b{ &yellow, &mesh2 };
+    b.blue = 1;
 
     // while the user does not want to quit, (x button, alt f4)
     while (!window.shouldClose())
