@@ -19,9 +19,12 @@ public:
 	void render() {
 		material->use();
 
+		// uniform
 		int tintLocation = glGetUniformLocation(material->shaderProgram, "tintColor");
-
 		glUniform4f(tintLocation, red, green, blue, 1); //pass colors into uniform
+		
+		int offSetLocation = glGetUniformLocation(material->shaderProgram, "offSet");
+		glUniform1f(offSetLocation, 0.5f); //pass colors into uniform
 
 		mesh->render();
 	}
