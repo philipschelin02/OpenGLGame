@@ -11,27 +11,29 @@ void processInput(GLFWwindow*);
 
 int main() {
 
-    Window window{ 800 ,600 };
+    Window window{ 800,600 };
 
     //real program starts here!!!!!!
 
-    float vertices[]{
-           -1.0f, -0.5f, 0.0f,
-            0.0f, -0.5f, 0.0f,
-           -0.5f,  0.5f, 0.0f,
-           -1.0f, -0.5f, 0.0f,
-           -0.5f,  0.5f, 0.0f,
-           -1.0f, 0.5f, 0.0f
+    Vertex vertices[]{
+           Vertex{Vector3{-1.0f, -0.5f, 0.0f}},
+           Vertex{Vector3{ 0.0f, -0.5f, 0.0f}},
+           Vertex{Vector3{-0.5f,  0.5f, 0.0f}},
+           Vertex{Vector3{-1.0f, -0.5f, 0.0f}},
+           Vertex{Vector3{-0.5f,  0.5f, 0.0f}},
+           Vertex{Vector3{-1.0f, 0.5f, 0.0f}}
     };
     // Variable to store buffer id
 
+    
+
     Mesh mesh1{ vertices, size(vertices) };
 
-    float vertices2[]{
+    Vertex vertices2[]{
         //triangle två
-         0.0f, -0.0f, 0.0f,
-         0.45f, 0.5f, 0.0f,
-         0.9f,  0.0f, 0.0f
+         Vertex{Vector3{0.0f, -0.5f, 0.0f},Color::red}, // A
+         Vertex{Vector3{1.0f,  -0.5f, 0.0f},Color::green}, // B
+         Vertex{Vector3{0.5f,  0.5f, 0.0f},Color::blue}
     };
     
     Mesh mesh2{ vertices2, size(vertices2) };
