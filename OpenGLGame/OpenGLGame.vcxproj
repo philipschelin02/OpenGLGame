@@ -80,11 +80,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)ext\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)ext\glad\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ext\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\stb\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)ext\glfw-3.3.9.bin.WIN64\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)ext\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\stb\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -151,7 +152,9 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="OpenGLGame.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="stb.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <None Include="textureFragmentShader.glsl" />
     <None Include="vertexShaderUpsideDown.glsl" />
     <None Include="yellowFragmentShader.glsl">
       <FileType>Document</FileType>

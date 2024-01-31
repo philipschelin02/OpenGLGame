@@ -2,6 +2,10 @@
 #include <glad/glad.h>
 #include <cstddef>
 
+struct Vector2 {
+    float u, v;
+};
+
 struct Vector3 {
     float x, y, z;
 };
@@ -10,6 +14,7 @@ struct Color {
     static const Color red;
     static const Color green;
     static const Color blue;
+    static const Color yellow;
     float r, g, b, a;
 };
 
@@ -17,6 +22,7 @@ struct Color {
 struct Vertex {
     Vector3 pos;
     Color col{ 1,1,1,1 };
+    Vector2 uv; // texture coords
 };
 
 class Mesh
@@ -49,7 +55,12 @@ public:
         //so vertex understands where to find the input attributes, posotion in this case
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, pos));
         glEnableVertexAttribArray(0);
+
         glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, col));
         glEnableVertexAttribArray(1);
+
+        //what to change for new uv attribute?
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
+        glEnableVertexAttribArray(2);
 	}
 };
