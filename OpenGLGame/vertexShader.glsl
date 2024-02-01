@@ -8,11 +8,9 @@ out vec2 texCoord; // we want to output a tex coord
 
 uniform float horizontalOffset;
 
-uniform vec2 hello;
-
 void main()
 {
-    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+    gl_Position = vec4(aPos.x + horizontalOffset, aPos.y, aPos.z, 1.0);
     vertexColor = aCol;
     texCoord = aPos.xy; // we do output the value. uv cords start in bottom left
 }

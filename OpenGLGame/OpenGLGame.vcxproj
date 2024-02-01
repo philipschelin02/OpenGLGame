@@ -153,6 +153,7 @@
     <ClCompile Include="OpenGLGame.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <None Include="blendTexturesFragmentShader.glsl" />
     <None Include="textureFragmentShader.glsl" />
@@ -162,6 +163,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Shader.h" />

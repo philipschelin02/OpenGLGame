@@ -7,6 +7,7 @@
 #include "Material.h"
 #include "Triangle.h"
 #include "stb_image.h"
+#include "Texture.h"
 using namespace std;
 void processInput(GLFWwindow*);
 
@@ -14,27 +15,9 @@ int main() {
 
     Window window{ 800,600 };
 
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
-   
-    unsigned int textureId;
-    glGenTextures(1, &textureId);
-    glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
-    glBindTexture(GL_TEXTURE_2D, textureId);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    stbi_image_free(data);
-    //real program starts here!!!!!!
+    Texture container{ "container.jpg", GL_TEXTURE0 };
 
-    unsigned char* data1 = stbi_load("wall.jpg", &width, &height, &nrChannels, 0);
-
-    unsigned int textureId1;
-    glGenTextures(1, &textureId1);
-    glActiveTexture(GL_TEXTURE1); // activate the texture unit first before binding texture
-    glBindTexture(GL_TEXTURE_2D, textureId1);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data1);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    stbi_image_free(data1);
+    Texture wall{ "wall.jpg", GL_TEXTURE1 };
 
     Vertex vertices[]{
            Vertex{Vector3{-1.0f, -0.5f, 0.0f}},
@@ -45,9 +28,6 @@ int main() {
            Vertex{Vector3{-1.0f, 0.5f, 0.0f}}
     };
     // Variable to store buffer id
-
-    
-
     Mesh mesh1{ vertices, size(vertices) };
 
     Vertex vertices2[]{
@@ -90,7 +70,10 @@ int main() {
     a.red = 1;
     Triangle b{ &yellow, &mesh2 };
     b.blue = 1;
-    Triangle c{ &texture, &mesh3 };
+    Triangle c{ &texture, &mesh3, &wall };
+    c.horizontalOffset = -0.5f;
+    Triangle d{ &texture, &mesh3, &container };
+    d.horizontalOffset = +0.5f;
 
     // while the user does not want to quit, (x button, alt f4)
     while (!window.shouldClose())
@@ -109,6 +92,7 @@ int main() {
         b.render();
         //c.horizontalOffset = cos(glfwGetTime());
         c.render();
+        d.render();
         window.present();
     }
     //cleans upp all the glfw stuffies
