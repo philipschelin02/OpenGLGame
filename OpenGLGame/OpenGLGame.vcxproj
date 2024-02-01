@@ -154,6 +154,7 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <None Include="blendTexturesFragmentShader.glsl" />
     <None Include="textureFragmentShader.glsl" />
     <None Include="vertexShaderUpsideDown.glsl" />
     <None Include="yellowFragmentShader.glsl">

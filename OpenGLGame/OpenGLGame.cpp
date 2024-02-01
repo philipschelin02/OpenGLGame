@@ -16,6 +16,7 @@ int main() {
 
     int width, height, nrChannels;
     unsigned char* data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
+   
     unsigned int textureId;
     glGenTextures(1, &textureId);
     glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
@@ -24,6 +25,16 @@ int main() {
     glGenerateMipmap(GL_TEXTURE_2D);
     stbi_image_free(data);
     //real program starts here!!!!!!
+
+    unsigned char* data1 = stbi_load("wall.jpg", &width, &height, &nrChannels, 0);
+
+    unsigned int textureId1;
+    glGenTextures(1, &textureId1);
+    glActiveTexture(GL_TEXTURE1); // activate the texture unit first before binding texture
+    glBindTexture(GL_TEXTURE_2D, textureId1);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data1);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    stbi_image_free(data1);
 
     Vertex vertices[]{
            Vertex{Vector3{-1.0f, -0.5f, 0.0f}},
@@ -67,7 +78,7 @@ int main() {
 
     Shader yellowShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER};
 
-    Shader textureShader{ "textureFragmentShader.glsl", GL_FRAGMENT_SHADER };
+    Shader textureShader{ "blendTexturesFragmentShader.glsl", GL_FRAGMENT_SHADER };
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
     Material orange{ vertexShader, orangeShader };
@@ -96,8 +107,8 @@ int main() {
         
         a.render();
         b.render();
+        //c.horizontalOffset = cos(glfwGetTime());
         c.render();
-        
         window.present();
     }
     //cleans upp all the glfw stuffies

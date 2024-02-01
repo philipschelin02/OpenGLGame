@@ -63,5 +63,6 @@
     <None Include="yellowFragmentShader.glsl" />
     <None Include="vertexShaderUpsideDown.glsl" />
     <None Include="textureFragmentShader.glsl" />
+    <None Include="blendTexturesFragmentShader.glsl" />
   </ItemGroup>
 </Project>

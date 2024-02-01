@@ -25,6 +25,12 @@ public:
 		
 		int offSetLocation = glGetUniformLocation(material->shaderProgram, "offSet");
 		glUniform1f(offSetLocation, 0.5f); //pass colors into uniform
+		
+		int diffuseLocation = glGetUniformLocation(material->shaderProgram, "diffuseLocation");
+		glUniform1i(diffuseLocation, 0); //pass colors into uniform
+
+		int blendLocation = glGetUniformLocation(material->shaderProgram, "blendTexture");
+		glUniform1i(blendLocation, 1); //pass colors into uniform
 
 		mesh->render();
 	}
