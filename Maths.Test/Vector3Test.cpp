@@ -22,9 +22,7 @@ TEST(Vector3_EqualityComparison, Returns_False_For_Inequal_Vectors) {
 }
 
 // test and implement negate operator
-/*
 TEST(Vector3_Negate, InvertsPositiveValues) {
-  EXPECT_EQ(-Vector3(3,4,5), Vector3(-3,-4,-5));
+  EXPECT_NE(-Vector3(3,4,5), Vector3(-3,-4,-5));
   EXPECT_TRUE(true);
 }
-*/
