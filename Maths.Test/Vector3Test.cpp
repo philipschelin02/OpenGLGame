@@ -38,3 +38,7 @@ TEST(Vector3_MultiplicationComparison, Returns_Multiplication_Of_Floats) {
 TEST(Vector3_ScalarMultiplication, ScalesAllValues) {
     EXPECT_EQ(Vector3(3, 4, 5)*2, Vector3(6, 8, 10));
 }
+
+TEST(Vector3_Division, DividesAllValues) {
+    EXPECT_EQ(Vector3(3, 4, 5) )
+}
