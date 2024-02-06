@@ -40,5 +40,5 @@ TEST(Vector3_ScalarMultiplication, ScalesAllValues) {
 }
 
 TEST(Vector3_Division, DividesAllValues) {
-    EXPECT_EQ(Vector3(3, 4, 5) )
+    EXPECT_EQ(Vector3(4, 5, 6) / Vector3(1, 2, 3), Vector3(4, 2.5, 2));
 }

@@ -42,6 +42,6 @@ public:
 
     Vector3 operator/(const Vector3& other) const {
         //return vector where components are divided
-        return Vector3(x / x, y / y, z / z);
+        return Vector3(x / other.x, y / other.y, z / other.z);
     }
 };
