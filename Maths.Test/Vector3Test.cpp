@@ -9,20 +9,20 @@ TEST(Vector3_Constructor, AssignsAllComponents) {
 }
 
 TEST(Vector3_EqualityComparison, Returns_True_For_Equal_Vectors) {
-    EXPECT_EQ(Vector3(3, 4, 5), Vector3(3, 4, 5));
+    EXPECT_TRUE(Vector3(3, 4, 5) == Vector3(3, 4, 5));
 }
 
 // test and implement inequality comparison
 
 TEST(Vector3_EqualityComparison, Returns_False_For_Inequal_Vectors) {
-    EXPECT_NE(Vector3(3, 4, 5), Vector3(2, 4, 5));
-    EXPECT_NE(Vector3(3, 4, 5), Vector3(3, 2, 5));
-    EXPECT_NE(Vector3(3, 4, 5), Vector3(3, 4, 2));
-    EXPECT_NE(Vector3(3, 4, 5), Vector3(2, 2, 2));
+    EXPECT_FALSE(Vector3(3, 4, 5) == Vector3(2, 4, 5));
+    EXPECT_FALSE(Vector3(3, 4, 5) == Vector3(3, 2, 5));
+    EXPECT_FALSE(Vector3(3, 4, 5) == Vector3(3, 4, 2));
+    EXPECT_FALSE(Vector3(3, 4, 5) == Vector3(2, 2, 2));
 }
 
 // test and implement negate operator
 TEST(Vector3_Negate, InvertsPositiveValues) {
-  EXPECT_NE(-Vector3(3,4,5), Vector3(-3,-4,-5));
+  EXPECT_EQ(-Vector3(3,4,5), Vector3(-3,-4,-5));
   EXPECT_TRUE(true);
 }
