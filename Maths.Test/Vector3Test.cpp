@@ -26,3 +26,15 @@ TEST(Vector3_Negate, InvertsPositiveValues) {
   EXPECT_EQ(-Vector3(3,4,5), Vector3(-3,-4,-5));
   EXPECT_TRUE(true);
 }
+
+TEST(Vector3_AdditionComparison, Returns_Sum_Of_Floats) {
+    EXPECT_EQ(Vector3(3, 4, 5) + Vector3(1, 2, 3), Vector3(4, 6, 8));
+}
+
+TEST(Vector3_MultiplicationComparison, Returns_Multiplication_Of_Floats) {
+    EXPECT_EQ(Vector3(5, 4, 3) * Vector3(2, 1, 3), Vector3(10, 4, 9));
+}
+
+TEST(Vector3_ScalarMultiplication, ScalesAllValues) {
+    EXPECT_EQ(Vector3(3, 4, 5)*2, Vector3(6, 8, 10));
+}
