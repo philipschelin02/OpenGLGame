@@ -40,5 +40,11 @@ TEST(Vector3_ScalarMultiplication, ScalesAllValues) {
 }
 
 TEST(Vector3_Division, DividesAllValues) {
-    EXPECT_EQ(Vector3(4, 5, 6) / Vector3(1, 2, 3), Vector3(4, 2.5, 2));
+    EXPECT_EQ(Vector3(4, 5, 6) / 2, Vector3(2, 2.5, 3));
+}
+
+TEST(Vector3_Magnitude, MagnitudesAllValues) {
+    EXPECT_FLOAT_EQ(Vector3(3, 4, 0).Magnitude(), 5);
+    EXPECT_FLOAT_EQ(Vector3(3, 0, 0).Magnitude(), 3);
+    EXPECT_FLOAT_EQ(Vector3(5, -3, 2).Magnitude(), sqrt(38));
 }

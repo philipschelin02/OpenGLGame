@@ -1,11 +1,11 @@
 #pragma once
+#include <corecrt_math.h>
 
 // Goal: Write a Unit Test to test one Vector Class Feature
 //        e.g. Vector3(1, 2, 3) + Vector3(4, 5, 6) = Vector3(5, 7, 9)
 // Then: Implement the Vector Class Feature
 //        e.g. return Vector3(x + other.x, ...
 // Do this for Vector3(float, float, float), ==, !=, -V3, V3*float, V3/float, V3+V3, V3-V3,
-//    float magnitude()
 class Vector3
 {
 public:
@@ -40,8 +40,12 @@ public:
         return Vector3(x * k, y * k, z * k);
     }
 
-    Vector3 operator/(const Vector3& other) const {
+    Vector3 operator/(float k) const {
         //return vector where components are divided
-        return Vector3(x / other.x, y / other.y, z / other.z);
+        return Vector3(x / k, y / k, z / k);
+    }
+
+    float Magnitude() const {
+        return sqrt(x * x + y * y + z * z);
     }
 };
