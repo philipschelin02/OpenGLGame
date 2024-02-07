@@ -48,4 +48,13 @@ public:
     float Magnitude() const {
         return sqrt(x * x + y * y + z * z);
     }
+
+    float Vector3 SquareMagnitude() {
+
+    }
+    
+    static float DotProduct(const Vector3& a, const Vector3& b) { //const exists to prevent you from using "this->". Since it's static theres no need for "const"
+        //return dot product of two vectors
+        return a.x * b.x + a.y * b.y + a.z * b.z;
+    }
 };
