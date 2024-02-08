@@ -56,3 +56,7 @@ TEST(Vector3_DotProduct, DotsTheProductOfAllValues) {
 TEST(Vector3_SquareMagnitude, SquaresTheMagnitudesOfAllValuesIPreferCirclesThough) {
     EXPECT_FLOAT_EQ(Vector3(3, 4, 0).SquareMagnitude(), 25);
 }
+
+TEST(Vector3_Distance, DistancesTheTwoVectors) {
+    ASSERT_EQ(Vector3::Distance(Vector3(1, 2, 3), Vector3(4, 5, 6)), sqrt(27));
+}

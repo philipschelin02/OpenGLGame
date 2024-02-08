@@ -1,5 +1,6 @@
 #pragma once
 #include <corecrt_math.h>
+#include <cmath>
 
 // Goal: Write a Unit Test to test one Vector Class Feature
 //        e.g. Vector3(1, 2, 3) + Vector3(4, 5, 6) = Vector3(5, 7, 9)
@@ -56,5 +57,9 @@ public:
     static float DotProduct(const Vector3& a, const Vector3& b) { //const exists to prevent you from using "this->". Since it's static theres no need for "const"
         //return dot product of two vectors
         return a.x * b.x + a.y * b.y + a.z * b.z;
+    }
+
+    static float Distance(const Vector3& a, const Vector3& b) {
+        return sqrt(std::pow(b.x - a.x, 2) + std::pow(b.y - a.y, 2) + std::pow(b.z - a.z, 2));
     }
 };
