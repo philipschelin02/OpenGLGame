@@ -49,8 +49,8 @@ public:
         return sqrt(x * x + y * y + z * z);
     }
 
-    float Vector3 SquareMagnitude() {
-
+    float SquareMagnitude() const {
+        return (x * x + y * y + z * z);
     }
     
     static float DotProduct(const Vector3& a, const Vector3& b) { //const exists to prevent you from using "this->". Since it's static theres no need for "const"

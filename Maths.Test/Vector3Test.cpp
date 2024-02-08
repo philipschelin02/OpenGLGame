@@ -52,3 +52,7 @@ TEST(Vector3_Magnitude, MagnitudesAllValues) {
 TEST(Vector3_DotProduct, DotsTheProductOfAllValues) {
     ASSERT_EQ(Vector3::DotProduct(Vector3(1, 2, 3), Vector3(4, 5, 6)), 32);
 }
+
+TEST(Vector3_SquareMagnitude, SquaresTheMagnitudesOfAllValuesIPreferCirclesThough) {
+    EXPECT_FLOAT_EQ(Vector3(3, 4, 0).SquareMagnitude(), 25);
+}
