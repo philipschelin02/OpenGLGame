@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Texture.h"
+#include "../Maths/Vector3.h"
 
 class Triangle
 {
@@ -14,11 +15,12 @@ public:
 	float red; // add the colors as data members in the class
 	float green; // why in the class, you ask?
 	float blue; //
-	float horizontalOffset;
+	Vector3 position = Vector3(0, 0, 0);
 	Triangle(Material* _material, Mesh* _mesh, Texture* _texture = nullptr) {
 		mesh = _mesh;
 		material = _material;
 		texture = _texture;
+		position = Vector3( 0, 0, 0 );
 	}
 	void render() {
 		material->use();
@@ -26,9 +28,14 @@ public:
 		// uniform
 		int tintLocation = glGetUniformLocation(material->shaderProgram, "tintColor");
 		glUniform4f(tintLocation, red, green, blue, 1); //pass colors into uniform
+
+		Matrix4x4 matTranslation = Matrix4x4::Translation(position);
+		Matrix4x4 matRotation = Matrix4x4::Rotation(rotation);
+
+		Matrix4x4 transform = matTranslation * matRotation;
 		
-		int offSetLocation = glGetUniformLocation(material->shaderProgram, "horizontalOffset");
-		glUniform1f(offSetLocation, horizontalOffset); //pass colors into uniform
+		int transformLocation = glGetUniformLocation(material->shaderProgram, "transform");
+		glUniformMatrix4fv(transformLocation, 1, GL_TRUE, &transform.m11);
 		
 		int diffuseLocation = glGetUniformLocation(material->shaderProgram, "diffuseLocation");
 		glUniform1i(diffuseLocation, 0); //pass colors into uniform

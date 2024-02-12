@@ -8,6 +8,7 @@
 #include "Triangle.h"
 #include "stb_image.h"
 #include "Texture.h"
+#include <math.h>
 using namespace std;
 void processInput(GLFWwindow*);
 
@@ -73,7 +74,7 @@ int main() {
     Triangle c{ &texture, &mesh3, &wall };
     c.horizontalOffset = -0.5f;
     Triangle d{ &texture, &mesh3, &container };
-    d.horizontalOffset = +0.5f;
+    d.position = 
 
     // while the user does not want to quit, (x button, alt f4)
     while (!window.shouldClose())
@@ -87,6 +88,8 @@ int main() {
 
         //dry principle
         //dont repeat urself
+        d.rotation.y = glfwGetTime();
+        d.rotation.z = glfwGetTime();
         
         a.render();
         b.render();

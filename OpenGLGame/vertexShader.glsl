@@ -6,11 +6,12 @@ layout (location = 2) in vec2 aTexCoord;
 out vec4 vertexColor;
 out vec2 texCoord; // we want to output a tex coord
 
-uniform float horizontalOffset;
+uniform mat4 transform;
 
 void main()
 {
-    gl_Position = vec4(aPos.x + horizontalOffset, aPos.y, aPos.z, 1.0);
+    gl_Position = transform * vec4(aPos.xyz, 1);
     vertexColor = aCol;
-    texCoord = aPos.xy; // we do output the value. uv cords start in bottom left
+    //texCoord = aPos.xy; // we do output the value. uv cords start in bottom left
+    texCoord = aTexCoord;
 }
