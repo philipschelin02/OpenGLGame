@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <cstddef>
 #include "../Maths/Vector3.h"
+#include <algorithm>
 
 struct Vector2 {
     float u, v;
@@ -26,14 +27,34 @@ class Mesh
 {
     unsigned int VAO;
     size_t vertexCount;
+
+    const static Vertex quadVertices[6]; // here we declare vertices
+    static Mesh* quadMesh;
+    //do same for trinagle
+    // keep as is
+    // rotate around itself
+    // literally how aaaaaa
+    //bonus: calculate the right coords
+    //do same for box
+    //6 sides, -0.5 -> 0.5 on all axes (x,y,z)
+
 public:
 
-    void render() {
+    //publc static methord to create quad mesh
+
+    static const Mesh* createQuad() {
+        if (quadMesh == nullptr) {
+            quadMesh = new Mesh{ Mesh::quadVertices, std::size(Mesh::quadVertices) };
+        }
+        return quadMesh; //
+    }
+
+    void render() const {
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, vertexCount);
     }
 
-	Mesh(Vertex* vertices, size_t count) {
+	Mesh(const Vertex* vertices, size_t count) {
         vertexCount = count;
         //Create vertex array object
        
@@ -61,3 +82,6 @@ public:
         glEnableVertexAttribArray(2);
 	}
 };
+
+//define vertices omg
+

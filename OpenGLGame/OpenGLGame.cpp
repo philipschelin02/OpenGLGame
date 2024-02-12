@@ -5,10 +5,10 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Material.h"
-#include "Triangle.h"
+#include "GameObject.h"
 #include "stb_image.h"
 #include "Texture.h"
-#include <math.h>
+#include <vector>
 using namespace std;
 void processInput(GLFWwindow*);
 
@@ -40,18 +40,7 @@ int main() {
     
     Mesh mesh2{ vertices2, size(vertices2) };
 
-    Vertex vertices3[]{
-            // positions                // colors           // texture coords
-    Vertex{Vector3{ 0.5f,  0.5f, 0.0f},   Color::red,    Vector2{0.5f, 0.5f}},   // top right
-    Vertex{Vector3{ 0.5f, -0.5f, 0.0f},   Color::green,  Vector2{0.5f, -0.5f}},   // bottom right
-    Vertex{Vector3{-0.5f, -0.5f, 0.0f},   Color::blue,   Vector2{-0.5f, -0.5f}},   // bottom left
     
-    Vertex{Vector3{-0.5f,  0.5f, 0.0f},   Color::yellow, Vector2{-0.5f, 0.5f}},    // top left
-    Vertex{Vector3{ 0.5f,  0.5f, 0.0f},   Color::red,    Vector2{0.5f, 0.5f}}, 
-    Vertex{Vector3{-0.5f, -0.5f, 0.0f},   Color::blue,   Vector2{-0.5f, -0.5f}} 
-    };
-
-    Mesh mesh3{ vertices3, size(vertices3) };
 
     Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER};
 
@@ -67,13 +56,13 @@ int main() {
     Material texture{ vertexShader, textureShader };
 
 
-    Triangle a{ &orange, &mesh1 };
+    GameObject a{ &orange, &mesh1 };
     a.red = 1;
-    Triangle b{ &yellow, &mesh2 };
+    GameObject b{ &yellow, &mesh2 };
     b.blue = 1;
-    Triangle c{ &texture, &mesh3, &wall };
+    GameObject c{ &texture, Mesh::createQuad(), &wall};
     c.position = Vector3(-0.75f, 0, 0);
-    Triangle d{ &texture, &mesh3, &container };
+    GameObject d{ &texture, Mesh::createQuad(), &container};
     d.position = Vector3(0.75f, 0, 0);
 
     // while the user does not want to quit, (x button, alt f4)
