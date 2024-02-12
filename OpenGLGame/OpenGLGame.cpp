@@ -72,9 +72,9 @@ int main() {
     Triangle b{ &yellow, &mesh2 };
     b.blue = 1;
     Triangle c{ &texture, &mesh3, &wall };
-    c.horizontalOffset = -0.5f;
+    c.position = Vector3(-0.75f, 0, 0);
     Triangle d{ &texture, &mesh3, &container };
-    d.position = 
+    d.position = Vector3(0.75f, 0, 0);
 
     // while the user does not want to quit, (x button, alt f4)
     while (!window.shouldClose())
@@ -88,7 +88,7 @@ int main() {
 
         //dry principle
         //dont repeat urself
-        d.rotation.y = glfwGetTime();
+        c.rotation.y = glfwGetTime();
         d.rotation.z = glfwGetTime();
         
         a.render();

@@ -3,7 +3,7 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Texture.h"
-#include "../Maths/Vector3.h"
+#include "../Maths/Matrix4x4.h"
 
 class Triangle
 {
@@ -16,11 +16,11 @@ public:
 	float green; // why in the class, you ask?
 	float blue; //
 	Vector3 position = Vector3(0, 0, 0);
+	Vector3 rotation = Vector3(0, 0, 0);
 	Triangle(Material* _material, Mesh* _mesh, Texture* _texture = nullptr) {
 		mesh = _mesh;
 		material = _material;
 		texture = _texture;
-		position = Vector3( 0, 0, 0 );
 	}
 	void render() {
 		material->use();
