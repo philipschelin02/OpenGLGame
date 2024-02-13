@@ -3,12 +3,13 @@
 
 struct Matrix4x4;
 Matrix4x4 operator *(const Matrix4x4& a, const Matrix4x4& b);
+Vector3 operator *(const Matrix4x4& a, const Vector3& b);
 
 struct Matrix4x4 {
-    float m11, m12, m13, m14; // x
-    float m21, m22, m23, m24; // y
-    float m31, m32, m33, m34; // z
-    float m41, m42, m43, m44; // 1, says Marc.
+    float m11, m12, m13, m14;
+    float m21, m22, m23, m24;
+    float m31, m32, m33, m34;
+    float m41, m42, m43, m44;
 
     Matrix4x4(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
         : m11{ m11 }, m12{ m12 }, m13{ m13 }, m14{ m14 },
@@ -81,7 +82,7 @@ struct Matrix4x4 {
     {
         float yScale = 1.0f / tanf(fov * 0.5f);
         float xScale = yScale / aspectRatio;
-        float Q = farPlane / (farPlane - nearPlane);
+        float Q = (farPlane + nearPlane) / (nearPlane - farPlane);
 
         return Matrix4x4(xScale, 0.0f, 0.0f, 0.0f,
             0.0f, yScale, 0.0f, 0.0f,
@@ -90,6 +91,11 @@ struct Matrix4x4 {
     }
 };
 
+inline Vector3 operator *(const Matrix4x4& m, const Vector3& v) {
+    return Vector3(m.m11 * v.x + m.m12 * v.y + m.m13 * v.z + m.m14 * 1,
+        m.m21 * v.x + m.m22 * v.y + m.m23 * v.z + m.m24 * 1,
+        m.m31 * v.x + m.m32 * v.y + m.m33 * v.z + m.m34 * 1);
+}
 
 inline Matrix4x4 operator *(const Matrix4x4& a, const Matrix4x4& b) {
     return Matrix4x4(
@@ -112,10 +118,4 @@ inline Matrix4x4 operator *(const Matrix4x4& a, const Matrix4x4& b) {
         b.m12 * a.m41 + b.m22 * a.m42 + b.m32 * a.m43 + b.m42 * a.m44,
         b.m13 * a.m41 + b.m23 * a.m42 + b.m33 * a.m43 + b.m43 * a.m44,
         b.m14 * a.m41 + b.m24 * a.m42 + b.m34 * a.m43 + b.m44 * a.m44);
-}
-
-inline Vector3 operator *(const Matrix4x4& m, const Vector3& v) {
-    return Vector3(m.m11 * v.x + m.m12 * v.y + m.m13 * v.z + m.m14 * 1,
-        m.m21 * v.x + m.m22 * v.y + m.m23 * v.z + m.m24 * 1,
-        m.m31 * v.x + m.m32 * v.y + m.m33 * v.z + m.m34 * 1);
 }

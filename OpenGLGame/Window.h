@@ -56,6 +56,7 @@ public:
         glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
         glfwGetFramebufferSize(window, &width, &height);
         glViewport(0, 0, width, height);
+        glEnable(GL_DEPTH_TEST);
 
         //init ends here
         success = true; //we set success to be truesies
@@ -81,6 +82,6 @@ public:
 
     void clear() {
         glClearColor(0.0f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 };

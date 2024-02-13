@@ -4,6 +4,7 @@
 #include "Material.h"
 #include "Texture.h"
 #include "../Maths/Matrix4x4.h"
+#include <cmath>
 
 class GameObject
 {
@@ -37,6 +38,16 @@ public:
 		int transformLocation = glGetUniformLocation(material->shaderProgram, "transform");
 		glUniformMatrix4fv(transformLocation, 1, GL_TRUE, &transform.m11);
 		
+		Matrix4x4 view = Matrix4x4::Translation(Vector3{ 0, 0,(sin(time) + 2) * -3 });
+		unsigned int viewLoc = glGetUniformLocation(material->shaderProgram, "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_TRUE, &view.m11);
+
+		float fov = 45.0f / 360 * 2 * M_PI;
+		float aspectRatio = 800.0f / 600;
+		Matrix4x4 projection = Matrix4x4::Perspective(fov, aspectRatio, 0.1f, 100.0f);
+		unsigned int projectionLoc = glGetUniformLocation(material->shaderProgram, "projection");
+		glUniformMatrix4fv(projectionLoc, 1, GL_TRUE, &projection.m11);
+
 		int diffuseLocation = glGetUniformLocation(material->shaderProgram, "diffuseLocation");
 		glUniform1i(diffuseLocation, 0); //pass colors into uniform
 		

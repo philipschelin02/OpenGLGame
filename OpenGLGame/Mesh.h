@@ -30,6 +30,9 @@ class Mesh
 
     const static Vertex quadVertices[6]; // here we declare vertices
     static Mesh* quadMesh;
+
+    const static Vertex triangleVertices[3];
+    static Mesh* triangleMesh;
     //do same for trinagle
     // keep as is
     // rotate around itself
@@ -37,6 +40,8 @@ class Mesh
     //bonus: calculate the right coords
     //do same for box
     //6 sides, -0.5 -> 0.5 on all axes (x,y,z)
+    const static Vertex cubeVertices[36];
+    static Mesh* cubeMesh;
 
 public:
 
@@ -46,7 +51,21 @@ public:
         if (quadMesh == nullptr) {
             quadMesh = new Mesh{ Mesh::quadVertices, std::size(Mesh::quadVertices) };
         }
-        return quadMesh; //
+        return quadMesh;
+    }
+
+    static const Mesh* createTriangle() {
+        if (triangleMesh == nullptr) {
+            triangleMesh = new Mesh{ Mesh::triangleVertices, std::size(Mesh::triangleVertices) };
+        }
+        return triangleMesh;
+    }
+
+    static const Mesh* createCube() { // NEW: function to create (or get) a quad mesh
+        if (!cubeMesh) { // NEW: initialize, if not happened, yet
+            cubeMesh = new Mesh{ Mesh::cubeVertices, std::size(Mesh::cubeVertices) };
+        }
+        return cubeMesh; // NEW: return quad mesh
     }
 
     void render() const {

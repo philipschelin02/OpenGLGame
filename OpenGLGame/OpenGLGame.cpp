@@ -20,50 +20,19 @@ int main() {
 
     Texture wall{ "wall.jpg", GL_TEXTURE1 };
 
-    Vertex vertices[]{
-           Vertex{Vector3{-1.0f, -0.5f, 0.0f}},
-           Vertex{Vector3{ 0.0f, -0.5f, 0.0f}},
-           Vertex{Vector3{-0.5f,  0.5f, 0.0f}},
-           Vertex{Vector3{-1.0f, -0.5f, 0.0f}},
-           Vertex{Vector3{-0.5f,  0.5f, 0.0f}},
-           Vertex{Vector3{-1.0f, 0.5f, 0.0f}}
-    };
     // Variable to store buffer id
-    Mesh mesh1{ vertices, size(vertices) };
-
-    Vertex vertices2[]{
-        //triangle två
-         Vertex{Vector3{0.0f, -0.5f, 0.0f},Color::red}, // A
-         Vertex{Vector3{1.0f,  -0.5f, 0.0f},Color::green}, // B
-         Vertex{Vector3{0.5f,  0.5f, 0.0f},Color::blue}
-    };
-    
-    Mesh mesh2{ vertices2, size(vertices2) };
-
-    
 
     Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER};
 
     Shader orangeShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER};
 
-    Shader yellowShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER};
-
     Shader textureShader{ "blendTexturesFragmentShader.glsl", GL_FRAGMENT_SHADER };
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
     Material orange{ vertexShader, orangeShader };
-    Material yellow{ vertexShader, yellowShader };
     Material texture{ vertexShader, textureShader };
 
-
-    GameObject a{ &orange, &mesh1 };
-    a.red = 1;
-    GameObject b{ &yellow, &mesh2 };
-    b.blue = 1;
-    GameObject c{ &texture, Mesh::createQuad(), &wall};
-    c.position = Vector3(-0.75f, 0, 0);
-    GameObject d{ &texture, Mesh::createQuad(), &container};
-    d.position = Vector3(0.75f, 0, 0);
+    GameObject cube{ &texture, Mesh::createCube(), &wall };
 
     // while the user does not want to quit, (x button, alt f4)
     while (!window.shouldClose())
@@ -75,16 +44,12 @@ int main() {
         //render (paint current frame of game)
         window.clear();
 
-        //dry principle
-        //dont repeat urself
-        c.rotation.y = glfwGetTime();
-        d.rotation.z = glfwGetTime();
-        
-        a.render();
-        b.render();
-        //c.horizontalOffset = cos(glfwGetTime());
-        c.render();
-        d.render();
+        cube.rotation.x = glfwGetTime();
+        cube.rotation.y = glfwGetTime() * 0.8f;
+        cube.rotation.z = glfwGetTime() * 0.6f;
+        cube.render();
+
+
         window.present();
     }
     //cleans upp all the glfw stuffies
